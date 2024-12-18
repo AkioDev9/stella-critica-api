@@ -29,6 +29,11 @@ public class PeliculaServiceImplement implements IPeliculaService {
     }
 
     @Override
+    public Pelicula listId(int id) {
+        return peliculaRepository.findById(id).orElse(new Pelicula());
+    }
+
+    @Override
     public void update(Pelicula pelicula) {
         peliculaRepository.save(pelicula);
     }

@@ -30,6 +30,11 @@ public class CriticaServiceImplement implements ICriticaService {
     }
 
     @Override
+    public Critica listId(int id) {
+        return criticaRepository.findById(id).orElse(new Critica());
+    }
+
+    @Override
     public void update(Critica critica) {
         criticaRepository.save(critica);
     }

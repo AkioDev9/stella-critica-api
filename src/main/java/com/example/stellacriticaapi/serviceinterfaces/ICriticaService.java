@@ -9,5 +9,5 @@ public interface ICriticaService {
     public void insert(Critica critica);
     public void update(Critica critica);
     public void delete(int id);
-
+    public Critica listId(int id);
 }
