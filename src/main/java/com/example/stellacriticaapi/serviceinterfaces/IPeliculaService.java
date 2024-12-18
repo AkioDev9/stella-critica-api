@@ -9,5 +9,5 @@ public interface IPeliculaService {
     public void insert(Pelicula pelicula);
     public void update(Pelicula pelicula);
     public void delete(int id);
-    public Pelicula listId(int id);
+    public Pelicula listId(int id); //borrar comentario
 }
