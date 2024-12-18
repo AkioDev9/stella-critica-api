@@ -1,7 +1,7 @@
 package com.example.stellacriticaapi.repositories;
 
 import com.example.stellacriticaapi.entities.Critica;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ICriticaRepository extends CrudRepository<Critica, Integer> {
+public interface ICriticaRepository extends JpaRepository<Critica, Integer> {
 }
