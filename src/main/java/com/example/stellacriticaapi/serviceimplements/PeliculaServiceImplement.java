@@ -13,7 +13,6 @@ public class PeliculaServiceImplement implements IPeliculaService {
     @Autowired
     private IPeliculaRepository peliculaRepository;
 
-
     @Override
     public List<Pelicula> list() {
         return peliculaRepository.findAll();
