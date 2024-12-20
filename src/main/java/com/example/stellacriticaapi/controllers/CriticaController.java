@@ -1,5 +1,6 @@
 package com.example.stellacriticaapi.controllers;
 
+import com.example.stellacriticaapi.dtos.CriticaPorTituloDTO;
 import com.example.stellacriticaapi.entities.Critica;
 import org.modelmapper.ModelMapper;
 import com.example.stellacriticaapi.dtos.CriticaDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,5 +56,20 @@ public class CriticaController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id) {
         criticaService.delete(id);
+    }
+
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
+    @GetMapping("/titulo/{titulo}")
+    public List<CriticaPorTituloDTO> criticasPorTitulo(@PathVariable("titulo") String titulo) {
+        List<String[]> lista = criticaService.buscarCriticasPorTitulo(titulo);
+        List<CriticaPorTituloDTO> listaDTO = new ArrayList<>();
+        for (String[] x : lista) {
+            CriticaPorTituloDTO dto = new CriticaPorTituloDTO();
+            dto.setTitulo(x[0]);
+            dto.setContenido(x[1]);
+            dto.setPuntuacion(Integer.parseInt(x[2]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
     }
 }

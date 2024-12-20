@@ -10,4 +10,5 @@ public interface ICriticaService {
     public void update(Critica critica);
     public void delete(int id);
     public Critica listId(int id);
+    List<String[]> buscarCriticasPorTitulo(String titulo);
 }

@@ -35,6 +35,11 @@ public class CriticaServiceImplement implements ICriticaService {
     }
 
     @Override
+    public List<String[]> buscarCriticasPorTitulo(String titulo) {
+        return criticaRepository.buscarCriticasPorTitulo(titulo);
+    }
+
+    @Override
     public void update(Critica critica) {
         criticaRepository.save(critica);
     }
