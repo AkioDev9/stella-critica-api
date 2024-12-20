@@ -30,4 +30,55 @@ public class Critica {
     @ManyToOne
     @JoinColumn(name = "pelicula_id", nullable = false)
     private Pelicula pelicula;
+
+    public Critica() {
+    }
+
+    public Critica(int idCritica, String contenido, int puntuacion, Usuario usuario, Pelicula pelicula) {
+        this.idCritica = idCritica;
+        this.contenido = contenido;
+        this.puntuacion = puntuacion;
+        this.usuario = usuario;
+        this.pelicula = pelicula;
+    }
+
+    public int getIdCritica() {
+        return idCritica;
+    }
+
+    public void setIdCritica(int idCritica) {
+        this.idCritica = idCritica;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
 }

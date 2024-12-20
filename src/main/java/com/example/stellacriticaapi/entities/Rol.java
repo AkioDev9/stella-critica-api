@@ -1,17 +1,9 @@
 package com.example.stellacriticaapi.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "Rol", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "nombreRol"})})
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +15,37 @@ public class Rol {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Usuario user;
+
+    public Rol() {
+    }
+
+    public Rol(int idRol, Usuario user, String nombreRol) {
+        this.idRol = idRol;
+        this.user = user;
+        this.nombreRol = nombreRol;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 }

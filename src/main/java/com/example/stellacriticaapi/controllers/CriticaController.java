@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import com.example.stellacriticaapi.dtos.CriticaDTO;
 import com.example.stellacriticaapi.serviceinterfaces.ICriticaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class CriticaController {
     @Autowired
     private ICriticaService criticaService;
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @GetMapping
     public List<CriticaDTO> listar() {
         return criticaService.list().stream().map(x -> {
@@ -24,6 +26,7 @@ public class CriticaController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @PostMapping
     public void registrar(@RequestBody CriticaDTO criticaDTO) {
         ModelMapper modelMapper = new ModelMapper();
@@ -31,6 +34,7 @@ public class CriticaController {
         criticaService.insert(critica);
     }
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'ADMIN')")
     @GetMapping("/{id}")
     public CriticaDTO listarId(@PathVariable("id") Integer id) {
         ModelMapper modelMapper = new ModelMapper();
@@ -38,6 +42,7 @@ public class CriticaController {
         return dto;
     }
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @PatchMapping
     public void modificar(@RequestBody CriticaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -45,6 +50,7 @@ public class CriticaController {
         criticaService.update(critica);
     }
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id) {
         criticaService.delete(id);

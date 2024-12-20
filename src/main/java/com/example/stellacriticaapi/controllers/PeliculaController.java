@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import com.example.stellacriticaapi.dtos.PeliculaDTO;
 import com.example.stellacriticaapi.serviceinterfaces.IPeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class PeliculaController {
     @Autowired
     private IPeliculaService peliculaService;
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @GetMapping
     public List<PeliculaDTO> listar() {
         return peliculaService.list().stream().map(x -> {
@@ -24,6 +26,7 @@ public class PeliculaController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public void registrar(@RequestBody PeliculaDTO peliculaDTO) {
         ModelMapper modelMapper = new ModelMapper();
@@ -31,6 +34,7 @@ public class PeliculaController {
         peliculaService.insert(pelicula);
     }
 
+    @PreAuthorize("hasAnyAuthority('EDITOR', 'CLIENTE', 'ADMIN')")
     @GetMapping("/{id}")
     public PeliculaDTO listarId(@PathVariable("id") Integer id) {
         ModelMapper modelMapper = new ModelMapper();
@@ -38,6 +42,7 @@ public class PeliculaController {
         return dto;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EDITOR')")
     @PatchMapping
     public void modificar(@RequestBody PeliculaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -45,6 +50,7 @@ public class PeliculaController {
         peliculaService.update(pelicula);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id) {
         peliculaService.delete(id);
